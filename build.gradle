@@ -13,10 +13,11 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
 
-jar {
-    baseName = 'gs-rest-service'
+war {
+    baseName = 'rolap'
     version =  '0.1.0'
 }
 
@@ -36,7 +37,8 @@ dependencies {
         exclude module: "slf4j-api"
     }
 
-
+// required for jsp
+    providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

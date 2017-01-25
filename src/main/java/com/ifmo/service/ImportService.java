@@ -2,6 +2,7 @@ package com.ifmo.service;
 
 import com.ifmo.rolap.domain.ProductType;
 import com.ifmo.rolap.repository.*;
+import com.ifmo.warehouse.repository.ProductTypeWarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class ImportService {
     @Autowired
     private ProductTypeRepository productTypeRepository;
 
+    @Autowired
+    private ProductTypeWarehouseRepository productTypeWarehouseRepository;
+
     public void clearAll() {
         orderFactRepository.deleteAll();
         productTypeRepository.deleteAll();
@@ -41,7 +45,7 @@ public class ImportService {
     }
 
     public String getProductType() {
-        return productRepository.findAll().stream().findFirst().get().toString();
+        return productTypeWarehouseRepository.findAll().stream().findFirst().get().toString();
     }
 
 

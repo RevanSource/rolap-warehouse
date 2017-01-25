@@ -1,8 +1,6 @@
 package com.ifmo.warehouse.domain;
 
 import com.ifmo.warehouse.domain.enumeration.StatusType;
-import org.apache.catalina.Store;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -41,7 +39,7 @@ public class CustomerOrderWarehouse implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "store_id")
-    private Store store;
+    private StoreWarehouse store;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -95,11 +93,11 @@ public class CustomerOrderWarehouse implements Serializable {
         this.otherDetails = otherDetails;
     }
 
-    public Store getStore() {
+    public StoreWarehouse getStore() {
         return store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(StoreWarehouse store) {
         this.store = store;
     }
 

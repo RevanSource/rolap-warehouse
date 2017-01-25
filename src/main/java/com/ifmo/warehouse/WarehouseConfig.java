@@ -47,7 +47,7 @@ public class WarehouseConfig {
     public DataSource warehouseDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/cm2");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/warehouse");
         dataSource.setUsername("postgres");
         dataSource.setPassword("postgres");
 

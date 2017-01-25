@@ -33,8 +33,9 @@ public class RolapConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<String, Object>();
-        properties.put("hibernate.hbm2ddl.auto", "true");
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto", "true"));
+        properties.put("hibernate.dialect",
+                env.getProperty("hibernate.dialect","org.hibernate.dialect.PostgreSQLDialect"));
         em.setJpaPropertyMap(properties);
 
         return em;
