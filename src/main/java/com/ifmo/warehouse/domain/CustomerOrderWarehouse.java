@@ -1,6 +1,5 @@
 package com.ifmo.warehouse.domain;
 
-import com.ifmo.rolap.domain.Customer;
 import com.ifmo.warehouse.domain.enumeration.StatusType;
 import org.apache.catalina.Store;
 
@@ -46,7 +45,7 @@ public class CustomerOrderWarehouse implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private CustomerWarehouse customer;
 
     public Long getId() {
         return id;
@@ -104,11 +103,11 @@ public class CustomerOrderWarehouse implements Serializable {
         this.store = store;
     }
 
-    public Customer getCustomer() {
+    public CustomerWarehouse getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(CustomerWarehouse customer) {
         this.customer = customer;
     }
 
