@@ -10,7 +10,6 @@ import java.util.Objects;
 @Table(name = "order_fact")
 public class OrderFact implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -37,6 +36,7 @@ public class OrderFact implements Serializable {
 
     @Column(name = "price", nullable = false)
     private int price;
+
     @Column(name = "currency")
     private String currency;
 

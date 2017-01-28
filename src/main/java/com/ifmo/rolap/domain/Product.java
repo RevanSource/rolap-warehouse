@@ -13,7 +13,6 @@ import java.util.Objects;
 public class Product implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -64,12 +63,12 @@ public class Product implements Serializable {
         this.otherDetails = otherDetails;
     }
 
-    public ProductType getProductTypeWarehouse() {
+    public ProductType getProductType() {
         return productType;
     }
 
-    public void setProductTypeWarehouse(ProductType ProductType) {
-        this.productType = ProductType;
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     @Override

@@ -39,11 +39,11 @@ public class CustomerOrderWarehouse implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "store_id")
-    private StoreWarehouse store;
+    private StoreWarehouse storeWarehouse;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private CustomerWarehouse customer;
+    private CustomerWarehouse customerWarehouse;
 
     public Long getId() {
         return id;
@@ -93,20 +93,20 @@ public class CustomerOrderWarehouse implements Serializable {
         this.otherDetails = otherDetails;
     }
 
-    public StoreWarehouse getStore() {
-        return store;
+    public StoreWarehouse getStoreWarehouse() {
+        return storeWarehouse;
     }
 
-    public void setStore(StoreWarehouse store) {
-        this.store = store;
+    public void setStoreWarehouse(StoreWarehouse storeWarehouse) {
+        this.storeWarehouse = storeWarehouse;
     }
 
-    public CustomerWarehouse getCustomer() {
-        return customer;
+    public CustomerWarehouse getCustomerWarehouse() {
+        return customerWarehouse;
     }
 
-    public void setCustomer(CustomerWarehouse customer) {
-        this.customer = customer;
+    public void setCustomerWarehouse(CustomerWarehouse customerWarehouse) {
+        this.customerWarehouse = customerWarehouse;
     }
 
     @Override

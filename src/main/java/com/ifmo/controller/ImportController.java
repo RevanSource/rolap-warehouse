@@ -14,6 +14,7 @@ public class ImportController {
 
     @RequestMapping(value = "/import", method = RequestMethod.GET)
     public String importData() {
+        importService.importAllData();
         return "Success";
     }
 

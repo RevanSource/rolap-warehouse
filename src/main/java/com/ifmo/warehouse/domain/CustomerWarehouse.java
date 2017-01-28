@@ -27,6 +27,10 @@ public class CustomerWarehouse {
     @Column(name = "other_details", nullable = false)
     private String otherDetails;
 
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private AddressWarehouse addressWarehouse;
+
     public Long getId() {
         return id;
     }
@@ -67,6 +71,13 @@ public class CustomerWarehouse {
         this.otherDetails = otherDetails;
     }
 
+    public AddressWarehouse getAddressWarehouse() {
+        return addressWarehouse;
+    }
+
+    public void setAddressWarehouse(AddressWarehouse addressWarehouse) {
+        this.addressWarehouse = addressWarehouse;
+    }
 
     @Override
     public boolean equals(Object o) {

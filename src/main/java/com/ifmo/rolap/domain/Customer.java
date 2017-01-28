@@ -5,10 +5,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Table(name = "address")
+@Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -26,6 +25,10 @@ public class Customer {
     @NotNull
     @Column(name = "other_details", nullable = false)
     private String otherDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     public Long getId() {
         return id;
@@ -67,6 +70,13 @@ public class Customer {
         this.otherDetails = otherDetails;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     @Override
     public boolean equals(Object o) {

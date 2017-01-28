@@ -13,7 +13,6 @@ import java.util.Objects;
 public class ProductType implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull

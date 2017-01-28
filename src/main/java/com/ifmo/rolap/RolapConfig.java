@@ -34,6 +34,8 @@ public class RolapConfig {
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<String, Object>();
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto", "true"));
+        properties.put("hibernate.ddl-auto", "update");
+        properties.put("hibernate.show-sql", "true");
         properties.put("hibernate.dialect",
                 env.getProperty("hibernate.dialect","org.hibernate.dialect.PostgreSQLDialect"));
         em.setJpaPropertyMap(properties);
