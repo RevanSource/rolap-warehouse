@@ -4,7 +4,7 @@ import com.ifmo.warehouse.domain.enumeration.StatusType;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -20,14 +20,14 @@ public class CustomerOrderWarehouse implements Serializable {
 
     @NotNull
     @Column(name = "order_date", nullable = false)
-    private ZonedDateTime orderDate;
+    private Date orderDate;
 
     @NotNull
     @Column(name = "planned_delivery_date", nullable = false)
-    private ZonedDateTime plannedDeliveryDate;
+    private Date plannedDeliveryDate;
 
     @Column(name = "actual_delivery_date")
-    private ZonedDateTime actualDeliveryDate;
+    private Date actualDeliveryDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -53,27 +53,27 @@ public class CustomerOrderWarehouse implements Serializable {
         this.id = id;
     }
 
-    public ZonedDateTime getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(ZonedDateTime orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
-    public ZonedDateTime getPlannedDeliveryDate() {
+    public Date getPlannedDeliveryDate() {
         return plannedDeliveryDate;
     }
 
-    public void setPlannedDeliveryDate(ZonedDateTime plannedDeliveryDate) {
+    public void setPlannedDeliveryDate(Date plannedDeliveryDate) {
         this.plannedDeliveryDate = plannedDeliveryDate;
     }
 
-    public ZonedDateTime getActualDeliveryDate() {
+    public Date getActualDeliveryDate() {
         return actualDeliveryDate;
     }
 
-    public void setActualDeliveryDate(ZonedDateTime actualDeliveryDate) {
+    public void setActualDeliveryDate(Date actualDeliveryDate) {
         this.actualDeliveryDate = actualDeliveryDate;
     }
 

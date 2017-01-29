@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Spring Data JPA repository for the OrderItem entity.
  */
-public interface OrderFactRepository extends JpaRepository<OrderFact,Long> {
+public interface OrderFactRepository extends JpaRepository<OrderFact, Long> {
 
 }

@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
@@ -71,9 +74,13 @@ public class ImportService {
         importData(customerWarehouseRepository, customerRepository, customerMapper::convertAll);
         importData(storeWarehouseRepository, storeRepository, storeMapper::convertAll);
         importData(productWarehouseRepository, productRepository, productMapper::convertAll);
-
-        orderFactRepository.save(createOrderFactList());
-
+        List<OrderFact> orderFactsList = createOrderFactList();
+        if (!orderFactsList.isEmpty()) {
+            OrderFact origin = orderFactsList.get(orderFactsList.size() - 1);
+            List<OrderFact> generatedFacts = generateRandomFacts(origin, 100);
+            orderFactsList.addAll(generatedFacts);
+            orderFactRepository.save(orderFactsList);
+        }
     }
 
     private <A, B>  List<B> importData(CrudRepository<A, Long> source,
@@ -99,6 +106,53 @@ public class ImportService {
 
         return orderFactList;
     }
+    private List<OrderFact> generateRandomFacts(OrderFact originalOrderFact, int number) {
+        Long id = originalOrderFact.getId();
+        List<OrderFact> result = new ArrayList<>(number);
+        int i = 0;
+        while (i++ <= number) {
+            OrderFact of = new OrderFact();
+            of.setId(++id);
+            of.setProduct(originalOrderFact.getProduct());
+            of.setCurrency(originalOrderFact.getCurrency());
+            of.setCustomer(originalOrderFact.getCustomer());
+            of.setStore(originalOrderFact.getStore());
+
+            of.setPrice(getRandomPrice(originalOrderFact.getPrice()));
+            of.setQuantity(getRandomQuantity(
+                    originalOrderFact.getQuantity(),
+                    originalOrderFact.getPrice(),
+                    of.getPrice()));
+            of.setOrderDate(incDate(originalOrderFact.getOrderDate(), i));
+            of.setPlannedDeliveryDate(incDate(of.getOrderDate(), getRandomWithinRange(1, 10)));
+
+            result.add(of);
+        }
+
+        return result;
+    }
+
+    private Date incDate(Date date, int days) {
+        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        localDateTime = localDateTime.plusDays(days);
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    private int getRandomPrice(int originPrice) {
+        return Math.abs((int) (Math.random() * originPrice + getRandomWithinRange(0, originPrice)));
+    }
+
+    private int getRandomWithinRange(int from, int to) {
+        return from + (int)(Math.random() * (to + 1));
+    }
+
+    private int getRandomQuantity(int origin, int originPrice, int currentPrice) {
+        if (currentPrice > originPrice) {
+            return (int) (origin * (1 + Math.random()));
+        } else {
+            return (int) (origin * (1 - Math.random()));
+        }
+    }
 
     private OrderFact createOrderFact(OrderItemWarehouse orderItemWarehouse) {
         OrderFact orderFact = new OrderFact();
@@ -122,6 +176,4 @@ public class ImportService {
         orderFact.setStore(storeMapper.convert(storeWarehouse));
         return orderFact;
     }
-
-
 }
