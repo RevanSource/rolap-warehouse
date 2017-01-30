@@ -67,20 +67,24 @@ public class ImportService {
         productTypeRepository.deleteAll();
     }
 
-    public void importAllData() {
-        clearAll();
+    public void importAllData(boolean clearData, boolean generateData) {
+        if (clearData) {
+            clearAll();
+        }
+
         importData(productTypeWarehouseRepository, productTypeRepository, productTypeMapper::convertAll);
         importData(addressWarehouseRepository, addressRepository, addressMapper::convertAll);
         importData(customerWarehouseRepository, customerRepository, customerMapper::convertAll);
         importData(storeWarehouseRepository, storeRepository, storeMapper::convertAll);
         importData(productWarehouseRepository, productRepository, productMapper::convertAll);
         List<OrderFact> orderFactsList = createOrderFactList();
-        if (!orderFactsList.isEmpty()) {
+        if (generateData && !orderFactsList.isEmpty()) {
             OrderFact origin = orderFactsList.get(orderFactsList.size() - 1);
             List<OrderFact> generatedFacts = generateRandomFacts(origin, 100);
             orderFactsList.addAll(generatedFacts);
-            orderFactRepository.save(orderFactsList);
         }
+        orderFactRepository.save(orderFactsList);
+
     }
 
     private <A, B>  List<B> importData(CrudRepository<A, Long> source,
